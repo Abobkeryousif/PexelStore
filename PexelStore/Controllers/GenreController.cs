@@ -28,7 +28,7 @@ namespace PexelStore.Controllers
         
         }
         [HttpGet]
-        [Route("{Id}")]
+        [Route("{Id:guid}")]
 
         public async Task<IActionResult> GetByIdAsync(Guid Id) 
         {
@@ -52,7 +52,7 @@ namespace PexelStore.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
+        [Route("{Id:guid}")]
         public async Task<IActionResult> DeleteAsync(Guid Id) 
         {
         var result = await _repository.DeleteAsync(Id);
@@ -62,6 +62,21 @@ namespace PexelStore.Controllers
             }
 
             return Ok(result);
+        
+        }
+
+        [HttpPut]
+        [Route("{Id:guid}")]
+        public async Task<IActionResult> UpdateAsync(Guid Id , UpdateGenreDTO updateGenreDTO) 
+        {
+            var GenreDomainModel = _mapper.Map<Genre>(updateGenreDTO);
+            GenreDomainModel = await _repository.UpdateAsync(Id,GenreDomainModel);
+            if (GenreDomainModel is null) 
+            {
+                BadRequest($"No Genre Found With this Id:{Id}");
+            }
+            var Genredto = _mapper.Map<GenreDTO>(GenreDomainModel);
+            return Ok(Genredto);
         
         }
     }

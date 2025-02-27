@@ -9,7 +9,8 @@ namespace PexelStore.Mapping
         public AutoMapperProfile()
         {
            CreateMap<Genre,GenreDTO>().ReverseMap();
-            CreateMap<Genre, AddGenreDTO>().ReverseMap(); 
+            CreateMap<Genre, AddGenreDTO>().ReverseMap();
+            CreateMap<Genre, UpdateGenreDTO>().ReverseMap();
         }
     }
 }

@@ -43,5 +43,20 @@ namespace PexelStore.Repository
         {
             return await _dbContext.genres.FirstOrDefaultAsync(x=> x.Id == Id);
         }
+
+        public async Task<Genre?> UpdateAsync(Guid? Id, Genre? genre)
+        {
+            var result = await _dbContext.genres.FirstOrDefaultAsync(x=> x.Id == Id);
+            if (result is null) 
+            {
+                return null;
+            }
+
+            result.Name = genre.Name;
+            result.GameId = genre.GameId;
+            await _dbContext.SaveChangesAsync();
+            return result;
+
+        }
     }
 }
