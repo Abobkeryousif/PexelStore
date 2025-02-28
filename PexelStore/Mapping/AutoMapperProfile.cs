@@ -11,6 +11,8 @@ namespace PexelStore.Mapping
            CreateMap<Genre,GenreDTO>().ReverseMap();
             CreateMap<Genre, AddGenreDTO>().ReverseMap();
             CreateMap<Genre, UpdateGenreDTO>().ReverseMap();
+            CreateMap<Games , AddGameDTO>().ReverseMap().ForMember(o => o.Poster, x => x.Ignore());
+            CreateMap<Games, UpdateGameDTO>().ReverseMap().ForMember(o => o.Poster, x => x.Ignore());
         }
     }
 }

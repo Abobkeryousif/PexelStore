@@ -6,8 +6,6 @@
 
         public string Name { get; set; }
 
-        public Guid? GameId { get; set; }
-
         public List<Games> games { get; set; }
     }
 }

@@ -58,7 +58,7 @@ namespace PexelStore.Controllers
         var result = await _repository.DeleteAsync(Id);
             if (result is null)
             {
-                BadRequest("Not Found Genre With your ID!");
+                BadRequest($"Not Found Genre With your Id: {Id}!");
             }
 
             return Ok(result);

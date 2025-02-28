@@ -4,6 +4,6 @@
     {
         public string Name { get; set; }
 
-        public Guid? GameId { get; set; }
+        
     }
 }

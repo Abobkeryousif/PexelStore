@@ -36,7 +36,7 @@ namespace PexelStore.Repository
 
         public async Task<List<Genre>> GetAllGenreAsync()
         {
-            return await _dbContext.genres.ToListAsync();
+            return await _dbContext.genres.Include("games").ToListAsync();
         }
 
         public async Task<Genre?> GetByIdAsync(Guid? Id)
@@ -53,7 +53,6 @@ namespace PexelStore.Repository
             }
 
             result.Name = genre.Name;
-            result.GameId = genre.GameId;
             await _dbContext.SaveChangesAsync();
             return result;
 
