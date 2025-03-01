@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PexelStore.Models.Domain;
+using PexelStore.Repository;
 
 namespace PexelStore.Controllers
 {
@@ -10,10 +11,12 @@ namespace PexelStore.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _manager;
+        private readonly ITokenRepository _tokenRepository;
 
-        public AuthController(UserManager<IdentityUser> manager)
+        public AuthController(UserManager<IdentityUser> manager,ITokenRepository tokenRepository)
         {
             _manager = manager;
+            _tokenRepository = tokenRepository;
         }
 
         [HttpPost]
@@ -59,7 +62,8 @@ namespace PexelStore.Controllers
                 var role = await _manager.GetRolesAsync(user);
                     if (role != null) 
                     {
-                        return Ok($"Welcom To Our Store");
+                        var jwtToken = _tokenRepository.CreateToken(user, role.ToList());
+                        return Ok(jwtToken);
                     
                     }
                 }
